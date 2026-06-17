@@ -1,0 +1,51 @@
+enum Role {
+ADMIN
+USER
+}
+
+type User {
+id: ID!
+businessName: String!
+email: String!
+role: Role!
+}
+
+type AuthPayload {
+accessToken: String!
+refreshToken: String!
+user: User!
+}
+
+input RegisterInput {
+businessName: String!
+email: String!
+mobile: String!
+address: String!
+logoUrl: String!
+password: String!
+}
+
+input LoginInput {
+email: String!
+password: String!
+}
+
+type Query {
+me: User
+}
+
+type Mutation {
+register(
+input: RegisterInput!
+): AuthPayload!
+
+login(
+input: LoginInput!
+): AuthPayload!
+
+refreshToken(
+token: String!
+): AuthPayload!
+
+logout: Boolean!
+}
