@@ -9,93 +9,102 @@ import { categoryResolver } from "@/graphql/resolvers/category.resolver";
 import { templateResolver } from "@/graphql/resolvers/template.resolver";
 import { templateElementResolver } from "@/graphql/resolvers/templateElement.resolver";
 import { elementResolver } from "@/graphql/resolvers/element.resolver";
+import { userPosterLayoutResolver } from "@/graphql/resolvers/userPosterLayout.resolver";
 
 import { createContext } from "@/graphql/context";
 
 const authSchemaPath = path.join(
-process.cwd(),
-"src/graphql/schema/auth.graphql"
+  process.cwd(),
+  "src/graphql/schema/auth.graphql"
 );
 
 const categorySchemaPath = path.join(
-process.cwd(),
-"src/graphql/schema/category.graphql"
+  process.cwd(),
+  "src/graphql/schema/category.graphql"
 );
 
 const templateSchemaPath = path.join(
-process.cwd(),
-"src/graphql/schema/template.graphql"
+  process.cwd(),
+  "src/graphql/schema/template.graphql"
 );
 
 const templateElementSchemaPath = path.join(
-process.cwd(),
-"src/graphql/schema/templateElement.graphql"
+  process.cwd(),
+  "src/graphql/schema/templateElement.graphql"
+);
+
+const userPosterLayoutSchemaPath = path.join(
+  process.cwd(),
+  "src/graphql/schema/userPosterLayout.graphql"
 );
 
 const authTypeDefs = fs.readFileSync(
-authSchemaPath,
-"utf-8"
+  authSchemaPath,
+  "utf-8"
 );
 
 const categoryTypeDefs = fs.readFileSync(
-categorySchemaPath,
-"utf-8"
+  categorySchemaPath,
+  "utf-8"
 );
 
 const templateTypeDefs = fs.readFileSync(
-templateSchemaPath,
-"utf-8"
+  templateSchemaPath,
+  "utf-8"
 );
 
 const templateElementTypeDefs = fs.readFileSync(
-templateElementSchemaPath,
-"utf-8"
+  templateElementSchemaPath,
+  "utf-8"
+);
+
+const userPosterLayoutTypeDefs = fs.readFileSync(
+  userPosterLayoutSchemaPath,
+  "utf-8"
 );
 
 const schema = createSchema({
-typeDefs: `
-${authTypeDefs}
+  typeDefs: `
+    ${authTypeDefs}
 
+    ${categoryTypeDefs}
 
-${categoryTypeDefs}
+    ${templateTypeDefs}
 
-${templateTypeDefs}
+    ${templateElementTypeDefs}
 
-${templateElementTypeDefs}
+    ${userPosterLayoutTypeDefs}
+  `,
 
-
-`,
-
-resolvers: [
-authResolver,
-categoryResolver,
-templateResolver,
-templateElementResolver,
-elementResolver,
-],
+  resolvers: [
+    authResolver,
+    categoryResolver,
+    templateResolver,
+    templateElementResolver,
+    elementResolver,
+    userPosterLayoutResolver,
+  ],
 });
 
 const yoga = createYoga({
-schema,
+  schema,
 
-graphqlEndpoint: "/api/graphql",
+  graphqlEndpoint: "/api/graphql",
 
-fetchAPI: {
-Response,
-Request,
-Headers,
-},
+  fetchAPI: {
+    Response,
+    Request,
+    Headers,
+  },
 
-context: async ({
-request,
-}) => {
-return createContext(
-request as any
-);
-},
+  context: async ({ request }) => {
+    return createContext(
+      request as any
+    );
+  },
 });
 
 export {
-yoga as GET,
-yoga as POST,
+  yoga as GET,
+  yoga as POST,
 };

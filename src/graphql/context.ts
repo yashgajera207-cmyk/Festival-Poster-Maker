@@ -15,7 +15,14 @@ export async function createContext(
 ): Promise<GraphQLContext> {
   try {
     const authHeader =
-      req.headers.get("authorization");
+      req.headers.get(
+        "authorization"
+      );
+
+    console.log(
+      "AUTH HEADER:",
+      authHeader
+    );
 
     if (!authHeader) {
       return {
@@ -29,13 +36,30 @@ export async function createContext(
         ""
       );
 
+    console.log(
+      "TOKEN:",
+      token
+    );
+
     const payload =
-      verifyAccessToken(token);
+      verifyAccessToken(
+        token
+      );
+
+    console.log(
+      "PAYLOAD:",
+      payload
+    );
 
     const user =
       await AuthRepository.findById(
         payload.userId
       );
+
+    console.log(
+      "DB USER:",
+      user
+    );
 
     if (!user) {
       return {
@@ -49,7 +73,12 @@ export async function createContext(
         role: user.role,
       },
     };
-  } catch {
+  } catch (error) {
+    console.log(
+      "CONTEXT ERROR:",
+      error
+    );
+
     return {
       user: null,
     };

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   LayoutDashboard,
@@ -9,8 +11,8 @@ import {
   Image,
   Layers3,
   Users,
-  LogOut,
   Sparkles,
+   LogOut,
   ChevronDown,
   User,
   Settings,
@@ -27,6 +29,23 @@ const navItems = [
 export default function Navbar() {
   const pathname = usePathname();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const router = useRouter();
+
+ const handleLogout = async () => {
+  try {
+    await fetch("/api/logout", {
+      method: "POST",
+    });
+
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    router.replace("/login");
+    router.refresh();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <>
@@ -380,7 +399,8 @@ export default function Navbar() {
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active =
-                  pathname === item.href || pathname.startsWith(item.href + "/");
+                  pathname === item.href ||
+                  pathname.startsWith(item.href + "/");
                 return (
                   <li key={item.href}>
                     <Link
@@ -416,11 +436,16 @@ export default function Navbar() {
 
             {isProfileOpen && (
               <>
-                <div className="overlay" onClick={() => setIsProfileOpen(false)} />
+                <div
+                  className="overlay"
+                  onClick={() => setIsProfileOpen(false)}
+                />
                 <div className="dropdown">
                   <div className="dropdown-header">
                     <div className="dropdown-header-name">Admin User</div>
-                    <div className="dropdown-header-email">admin@festivalpost.in</div>
+                    <div className="dropdown-header-email">
+                      admin@festivalpost.in
+                    </div>
                   </div>
                   <button className="dropdown-item">
                     <User size={15} />
@@ -431,7 +456,10 @@ export default function Navbar() {
                     Settings
                   </button>
                   <div className="dropdown-divider" />
-                  <button className="dropdown-item danger">
+                  <button
+                    onClick={handleLogout}
+                    className="dropdown-item danger"
+                  >
                     <LogOut size={15} />
                     Logout
                   </button>

@@ -96,15 +96,7 @@ export class AuthService {
       );
 
 
-    console.log(
-      "LOGIN EMAIL:",
-      input.email
-    );
 
-    console.log(
-      "USER FOUND:",
-      user
-    );
 
     if (!user) {
       throw new Error(
@@ -223,14 +215,36 @@ export class AuthService {
   }
 
   static async logout(
-    userId: string
-  ): Promise<boolean> {
-    await AuthRepository.removeRefreshToken(
-      userId
-    );
+  userId: string
+): Promise<boolean> {
+  await AuthRepository.removeRefreshToken(
+    userId
+  );
 
+  return true;
+}
 
-    return true;
-
+static async updateProfile(
+  userId: string,
+  input: {
+    businessName: string;
+    mobile: string;
+    address: string;
+    logoUrl: string;
   }
+) {
+  return AuthRepository.updateUser(
+    userId,
+    {
+      businessName:
+        input.businessName,
+      mobile:
+        input.mobile,
+      address:
+        input.address,
+      logoUrl:
+        input.logoUrl,
+    }
+  );
+}
 }

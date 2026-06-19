@@ -1,0 +1,46 @@
+type UserPosterLayout {
+  id: ID!
+
+  userId: String!
+  templateId: String!
+
+  elementType: String!
+
+  xPosition: Int!
+  yPosition: Int!
+
+  width: Int!
+  height: Int!
+
+  fontSize: Int
+  fontWeight: String
+  textColor: String
+}
+
+input UserPosterLayoutInput {
+  templateId: String!
+
+  elementType: String!
+
+  xPosition: Int!
+  yPosition: Int!
+
+  width: Int!
+  height: Int!
+
+  fontSize: Int
+  fontWeight: String
+  textColor: String
+}
+
+extend type Query {
+  userPosterLayouts(
+    templateId: String!
+  ): [UserPosterLayout!]!
+}
+
+extend type Mutation {
+  saveUserPosterLayout(
+    elements: [UserPosterLayoutInput!]!
+  ): Boolean!
+}

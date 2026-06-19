@@ -1,7 +1,7 @@
 type Template {
   id: ID!
   title: String!
-  thumbnailImage: String
+  
   backgroundImage: String!
 
   categoryId: String!

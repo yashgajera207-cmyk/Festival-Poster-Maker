@@ -57,6 +57,31 @@ export class AuthRepository {
       },
     });
   }
+  static async updateUser(
+  userId: string,
+  data: {
+    businessName: string;
+    mobile: string;
+    address: string;
+    logoUrl: string;
+  }
+): Promise<User> {
+  return prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      businessName:
+        data.businessName,
+      mobile:
+        data.mobile,
+      address:
+        data.address,
+      logoUrl:
+        data.logoUrl,
+    },
+  });
+}
 
   static async removeRefreshToken(
     userId: string

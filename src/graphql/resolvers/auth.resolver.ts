@@ -55,7 +55,22 @@ export const authResolver = {
         token
       );
     },
+updateProfile: async (
+  _: unknown,
+  { input }: any,
+  context: any
+) => {
+  if (!context.user) {
+    throw new Error(
+      "Unauthorized"
+    );
+  }
 
+  return AuthService.updateProfile(
+    context.user.id,
+    input
+  );
+},
     logout: async (
       _: unknown,
       __: unknown,

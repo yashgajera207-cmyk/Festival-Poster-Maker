@@ -13,22 +13,23 @@ USER
 }
 
 model User {
-id           String  @id @default(uuid())
-businessName String
-email        String  @unique
-mobile       String
-address      String
-logoUrl      String
-password     String
-role         Role    @default(USER)
-refreshToken String?
+  id String @id @default(uuid())
 
-createdAt DateTime @default(now())
-updatedAt DateTime @updatedAt
+  businessName String
+  email String @unique
+  mobile String
+  address String
+  logoUrl String
+  password String
+  role Role @default(USER)
+  refreshToken String?
 
-generatedPosters GeneratedPoster[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  generatedPosters GeneratedPoster[]
+  userPosterLayouts UserPosterLayout[]
 }
-
 model Category {
 id        String   @id @default(uuid())
 name      String
@@ -40,18 +41,21 @@ templates Template[]
 }
 
 model Template {
-id              String  @id @default(uuid())
-title           String
-backgroundImage String
+  id String @id @default(uuid())
 
-categoryId String
-category   Category @relation(fields: [categoryId], references: [id])
+  title String
+  backgroundImage String
 
-elements TemplateElement[]
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
 
-generatedPosters GeneratedPoster[]
+  elements TemplateElement[]
 
-createdAt DateTime @default(now())
+  generatedPosters GeneratedPoster[]
+
+  userPosterLayouts UserPosterLayout[]
+
+  createdAt DateTime @default(now())
 }
 
 model TemplateElement {
@@ -96,3 +100,26 @@ generatedImage String?
 createdAt DateTime @default(now())
 }
 
+model UserPosterLayout {
+  id String @id @default(uuid())
+
+  userId String
+  templateId String
+
+  elementType String
+
+  xPosition Int
+  yPosition Int
+
+  width Int
+  height Int
+
+  fontSize Int?
+  fontWeight String?
+  textColor String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  template Template @relation(fields: [templateId], references: [id])
+}

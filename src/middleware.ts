@@ -12,8 +12,8 @@ export function middleware(
     request.nextUrl.pathname;
 
   const protectedRoutes = [
-    "/dashboard",
     "/admin",
+    "/user",
   ];
 
   const isProtected =
@@ -38,7 +38,7 @@ export function middleware(
 
 export const config = {
   matcher: [
-    "/dashboard/:path*",
     "/admin/:path*",
+    "/user/:path*",
   ],
 };
