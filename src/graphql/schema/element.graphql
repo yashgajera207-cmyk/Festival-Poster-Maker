@@ -1,0 +1,48 @@
+type TemplateElement {
+id: ID!
+templateId: String!
+elementType: String!
+
+xPosition: Int!
+yPosition: Int!
+
+width: Int
+height: Int
+
+fontSize: Int
+fontWeight: String
+textColor: String
+}
+
+input CreateElementInput {
+templateId: String!
+elementType: String!
+
+xPosition: Int!
+yPosition: Int!
+
+width: Int
+height: Int
+
+fontSize: Int
+fontWeight: String
+textColor: String
+}
+
+extend type Query {
+elements(
+templateId: String!
+): [TemplateElement!]!
+
+allElements: [TemplateElement!]!
+}
+
+extend type Mutation {
+createElement(
+input: CreateElementInput!
+): TemplateElement!
+
+deleteElement(
+id: ID!
+): Boolean!
+}

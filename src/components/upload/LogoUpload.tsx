@@ -11,13 +11,25 @@ export default function LogoUpload({
     <CldUploadWidget
       uploadPreset="festival_poster"
       onSuccess={(result: any) => {
-        console.log(result);
+        console.log(
+          "CLOUDINARY RESULT:",
+          result
+        );
 
         const url =
           result?.info?.secure_url;
 
+        console.log(
+          "CLOUDINARY URL:",
+          url
+        );
+
         if (url) {
           onUploadSuccess(url);
+        } else {
+          console.error(
+            "Cloudinary URL not found"
+          );
         }
       }}
     >

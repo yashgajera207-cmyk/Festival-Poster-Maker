@@ -1,0 +1,52 @@
+type Template {
+  id: ID!
+  title: String!
+  thumbnailImage: String
+  backgroundImage: String!
+
+  categoryId: String!
+
+  category: Category!
+
+  createdAt: String!
+}
+
+input CreateTemplateInput {
+  title: String!
+  backgroundImage: String!
+  categoryId: String!
+}
+
+input UpdateTemplateInput {
+  id: ID!
+
+  title: String!
+  backgroundImage: String!
+  categoryId: String!
+}
+
+extend type Query {
+  templates: [Template!]!
+
+  template(
+    id: ID!
+  ): Template
+
+  templatesByCategory(
+    categoryId: String!
+  ): [Template!]!
+}
+
+extend type Mutation {
+  createTemplate(
+    input: CreateTemplateInput!
+  ): Template!
+
+  updateTemplate(
+    input: UpdateTemplateInput!
+  ): Template!
+
+  deleteTemplate(
+    id: ID!
+  ): Boolean!
+}

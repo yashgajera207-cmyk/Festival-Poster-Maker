@@ -1,3 +1,5 @@
+import { prisma } from "@/lib/prisma";
+
 import { AuthService } from "@/modules/auth/auth.service";
 import { AuthRepository } from "@/modules/auth/auth.repository";
 
@@ -15,6 +17,14 @@ export const authResolver = {
       return AuthRepository.findById(
         context.user.id
       );
+    },
+
+    users: async () => {
+      return prisma.user.findMany({
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
     },
   },
 
@@ -60,6 +70,19 @@ export const authResolver = {
       return AuthService.logout(
         context.user.id
       );
+    },
+
+    deleteUser: async (
+      _: unknown,
+      { id }: { id: string }
+    ) => {
+      await prisma.user.delete({
+        where: {
+          id,
+        },
+      });
+
+      return true;
     },
   },
 };

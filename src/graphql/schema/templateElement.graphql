@@ -1,0 +1,40 @@
+type TemplateElement {
+id: ID!
+templateId: String!
+elementType: String!
+xPosition: Int!
+yPosition: Int!
+width: Int!
+height: Int!
+}
+
+input TemplateElementInput {
+templateId: String!
+elementType: String!
+xPosition: Int!
+yPosition: Int!
+width: Int!
+height: Int!
+}
+
+extend type Query {
+elements(
+templateId: String!
+): [TemplateElement!]!
+
+allElements: [TemplateElement!]!
+}
+
+extend type Mutation {
+saveTemplateElements(
+elements: [TemplateElementInput!]!
+): Boolean!
+
+createElement(
+input: TemplateElementInput!
+): TemplateElement!
+
+deleteElement(
+id: ID!
+): Boolean!
+}
