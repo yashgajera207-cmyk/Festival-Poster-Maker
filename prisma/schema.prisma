@@ -123,3 +123,15 @@ model UserPosterLayout {
   user User @relation(fields: [userId], references: [id])
   template Template @relation(fields: [templateId], references: [id])
 }
+
+
+model Festival {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  imageUrl     String?
+  description  String?
+  festivalDate DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

@@ -10,6 +10,7 @@ import { templateResolver } from "@/graphql/resolvers/template.resolver";
 import { templateElementResolver } from "@/graphql/resolvers/templateElement.resolver";
 import { elementResolver } from "@/graphql/resolvers/element.resolver";
 import { userPosterLayoutResolver } from "@/graphql/resolvers/userPosterLayout.resolver";
+import { festivalResolver } from "@/graphql/resolvers/festival.resolver";
 
 import { createContext } from "@/graphql/context";
 
@@ -37,6 +38,10 @@ const userPosterLayoutSchemaPath = path.join(
   process.cwd(),
   "src/graphql/schema/userPosterLayout.graphql"
 );
+const festivalSchemaPath = path.join(
+  process.cwd(),
+  "src/graphql/schema/festival.graphql"
+);
 
 const authTypeDefs = fs.readFileSync(
   authSchemaPath,
@@ -63,6 +68,12 @@ const userPosterLayoutTypeDefs = fs.readFileSync(
   "utf-8"
 );
 
+const festivalTypeDefs =
+  fs.readFileSync(
+    festivalSchemaPath,
+    "utf-8"
+  );
+
 const schema = createSchema({
   typeDefs: `
     ${authTypeDefs}
@@ -74,6 +85,8 @@ const schema = createSchema({
     ${templateElementTypeDefs}
 
     ${userPosterLayoutTypeDefs}
+
+    ${festivalTypeDefs}
   `,
 
   resolvers: [
@@ -83,6 +96,7 @@ const schema = createSchema({
     templateElementResolver,
     elementResolver,
     userPosterLayoutResolver,
+    festivalResolver,
   ],
 });
 

@@ -1,0 +1,26 @@
+type Festival {
+  id: ID!
+  title: String!
+  slug: String!
+  imageUrl: String
+  description: String
+  festivalDate: String!
+}
+
+input FestivalInput {
+  title: String!
+  slug: String!
+  imageUrl: String
+  description: String
+  festivalDate: String!
+}
+
+extend type Query {
+  festivals: [Festival!]!
+}
+
+extend type Mutation {
+  createFestival(
+    input: FestivalInput!
+  ): Festival!
+}

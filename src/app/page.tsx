@@ -7,71 +7,176 @@ import { useEffect, useRef, useState } from "react";
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
 const industries = [
-  { name: "Solar",       icon: "fa-solar-panel",    img: "https://festivalpost.in/images/business-category/132098076_9c862491-8a06-440c-9d5a-2d76feaaace71.svg" },
-  { name: "Jewellery",   icon: "fa-gem",            img: "https://festivalpost.in/images/business-category/24855004_design2381.svg" },
-  { name: "Mobile Store",icon: "fa-mobile-screen",  img: "https://festivalpost.in/images/business-category/365433759_90905d3d-31ad-4a0c-b3c4-5691b012d9901.svg" },
-  { name: "Insurance",   icon: "fa-shield",         img: "https://festivalpost.in/images/business-category/414799689_f170327a-0d5d-4e87-adb6-7f7283c34e351.svg" },
-  { name: "Real Estate", icon: "fa-building",       img: "https://festivalpost.in/images/business-category/409788032_39cf12be-6d9d-4b18-b0f1-bdf853eae4651.png" },
-  { name: "Healthcare",  icon: "fa-heart",          img: "https://festivalpost.in/images/business-category/image34.png" },
-  { name: "Automotive",  icon: "fa-car",            img: "https://festivalpost.in/images/business-category/409788032_39cf12be-6d9d-4b18-b0f1-bdf853eae4651-1.png" },
-  { name: "E-commerce",  icon: "fa-cart-shopping",  img: "https://festivalpost.in/images/business-category/image34-1.png" },
-  { name: "Construction",icon: "fa-helmet-safety",  img: "https://festivalpost.in/images/business-category/409788032_39cf12be-6d9d-4b18-b0f1-bdf853eae4651-2.png" },
-  { name: "Beauty",      icon: "fa-spa",            img: "https://festivalpost.in/images/business-category/image34-2.png" },
-];
-
-const festivals = [
-  { name: "Holi",               img: "https://festivalpost.in/images/festive-planner/16415508197261_Fest_07_01_vishal_1_square1.svg" },
-  { name: "Makar Sankranti",    img: "https://festivalpost.in/images/festive-planner/image40.svg" },
-  { name: "Ganesh Chaturthi",   img: "https://festivalpost.in/images/festive-planner/16415508197261_Fest_07_01_vishal_1_square1-2.svg" },
-  { name: "Ram Navmi",          img: "https://festivalpost.in/images/festive-planner/16415508197261_Fest_07_01_vishal_1_square1-3.svg" },
-  { name: "Pongal",             img: "https://festivalpost.in/images/festive-planner/16415508197261_Fest_07_01_vishal_1_square1-4.svg" },
-  { name: "Vasant Panchami",    img: "https://festivalpost.in/images/festive-planner/1e33279dac6fe02e650ef956797f50f8b824e4a6.webp" },
-  { name: "Maha Shivratri",     img: "https://festivalpost.in/images/festive-planner/maha-shivratri.svg" },
-  { name: "Yoga Day",           img: "https://festivalpost.in/images/festive-planner/cat1.svg" },
-  { name: "Janmashtami",        img: "https://festivalpost.in/images/festive-planner/cat1-1.svg" },
-  { name: "Navratri",           img: "https://festivalpost.in/images/festive-planner/cat1-2.svg" },
-  { name: "Dussehra",           img: "https://festivalpost.in/images/festive-planner/cat1-3.svg" },
-  { name: "Diwali",             img: "https://festivalpost.in/images/festive-planner/cat1-4.svg" },
+  {
+    name: "Solar",
+    icon: "fa-solar-panel",
+    img: "https://festivalpost.in/images/business-category/132098076_9c862491-8a06-440c-9d5a-2d76feaaace71.svg",
+  },
+  {
+    name: "Jewellery",
+    icon: "fa-gem",
+    img: "https://festivalpost.in/images/business-category/24855004_design2381.svg",
+  },
+  {
+    name: "Mobile Store",
+    icon: "fa-mobile-screen",
+    img: "https://festivalpost.in/images/business-category/365433759_90905d3d-31ad-4a0c-b3c4-5691b012d9901.svg",
+  },
+  {
+    name: "Insurance",
+    icon: "fa-shield",
+    img: "https://festivalpost.in/images/business-category/414799689_f170327a-0d5d-4e87-adb6-7f7283c34e351.svg",
+  },
+  {
+    name: "Real Estate",
+    icon: "fa-building",
+    img: "https://festivalpost.in/images/business-category/409788032_39cf12be-6d9d-4b18-b0f1-bdf853eae4651.png",
+  },
+  {
+    name: "Healthcare",
+    icon: "fa-heart",
+    img: "https://festivalpost.in/images/business-category/image34.png",
+  },
+  {
+    name: "Automotive",
+    icon: "fa-car",
+    img: "https://festivalpost.in/images/business-category/409788032_39cf12be-6d9d-4b18-b0f1-bdf853eae4651-1.png",
+  },
+  {
+    name: "E-commerce",
+    icon: "fa-cart-shopping",
+    img: "https://festivalpost.in/images/business-category/image34-1.png",
+  },
+  {
+    name: "Construction",
+    icon: "fa-helmet-safety",
+    img: "https://festivalpost.in/images/business-category/409788032_39cf12be-6d9d-4b18-b0f1-bdf853eae4651-2.png",
+  },
+  {
+    name: "Beauty",
+    icon: "fa-spa",
+    img: "https://festivalpost.in/images/business-category/image34-2.png",
+  },
 ];
 
 const features = [
-  { icon: "fa-image",       title: "Custom Frame",          desc: "Add your own Photo from Phone Gallery and Set in the Readymade Frame Layout with Company Details like Business Logo, Name, Mobile Number, Gmail ID, Website and Address." },
-  { icon: "fa-pen-ruler",   title: "Custom Templates",      desc: "Our Creative Designer will Design specific Customize Poster Design to meet Customers Business Requirements with latest designs." },
-  { icon: "fa-language",    title: "Multiple Language",     desc: "Festival Poster & Videos are available in Hindi, English, Gujarati, Marathi, Tamil etc languages. Includes Poster Text in Indian regional languages for the users." },
-  { icon: "fa-share-nodes", title: "Social Share",          desc: "Share post on Social Media Apps like WhatsApp, Facebook, Instagram, Twitter, Pinterest, Snapchat, YouTube, Insta Reels etc on one click." },
-  { icon: "fa-images",      title: "Multiple Image Choice", desc: "Lots of Awesome Posters & Video to opt one of your Choice. Unique Background, Frames Layout, Color Combination, Text, Video Effects, etc." },
-  { icon: "fa-gift",        title: "Greetings",             desc: "Greetings Cards Designs for all occasions such as Happy Birthday, Festival, Product Launch, Anniversary, Congratulations, RIP etc with quotes messages." },
+  {
+    icon: "fa-image",
+    title: "Custom Frame",
+    desc: "Add your own Photo from Phone Gallery and Set in the Readymade Frame Layout with Company Details like Business Logo, Name, Mobile Number, Gmail ID, Website and Address.",
+  },
+  {
+    icon: "fa-pen-ruler",
+    title: "Custom Templates",
+    desc: "Our Creative Designer will Design specific Customize Poster Design to meet Customers Business Requirements with latest designs.",
+  },
+  {
+    icon: "fa-language",
+    title: "Multiple Language",
+    desc: "Festival Poster & Videos are available in Hindi, English, Gujarati, Marathi, Tamil etc languages. Includes Poster Text in Indian regional languages for the users.",
+  },
+  {
+    icon: "fa-share-nodes",
+    title: "Social Share",
+    desc: "Share post on Social Media Apps like WhatsApp, Facebook, Instagram, Twitter, Pinterest, Snapchat, YouTube, Insta Reels etc on one click.",
+  },
+  {
+    icon: "fa-images",
+    title: "Multiple Image Choice",
+    desc: "Lots of Awesome Posters & Video to opt one of your Choice. Unique Background, Frames Layout, Color Combination, Text, Video Effects, etc.",
+  },
+  {
+    icon: "fa-gift",
+    title: "Greetings",
+    desc: "Greetings Cards Designs for all occasions such as Happy Birthday, Festival, Product Launch, Anniversary, Congratulations, RIP etc with quotes messages.",
+  },
 ];
 
 const services = [
-  { name: "Own Logo Design",        icon: "fa-paint-brush",   img: "https://festivalpost.in/images/marketing-solutions/Icon.svg" },
-  { name: "Visiting Card Design",   icon: "fa-id-card",       img: "https://festivalpost.in/images/marketing-solutions/Icon-1.svg" },
-  { name: "Own Video Post Design",  icon: "fa-photo-film",    img: "https://festivalpost.in/images/marketing-solutions/Icon-2.svg" },
-  { name: "Own Photo Post Design",  icon: "fa-camera",        img: "https://festivalpost.in/images/marketing-solutions/Icon-3.svg" },
-  { name: "WhatsApp Status Saver",  icon: "fa-share-alt",     img: "https://festivalpost.in/images/marketing-solutions/Icon-5.svg" },
-  { name: "AI Image Generator",     icon: "fa-wand-sparkles", img: "https://festivalpost.in/images/marketing-solutions/Icon-6.svg" },
-  { name: "Own Mini Website",       icon: "fa-globe",         img: "https://festivalpost.in/images/marketing-solutions/Icon-7.svg" },
-  { name: "Create Video from Photo",icon: "fa-video",         img: "https://festivalpost.in/images/marketing-solutions/Icon-4.svg" },
+  {
+    name: "Own Logo Design",
+    icon: "fa-paint-brush",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon.svg",
+  },
+  {
+    name: "Visiting Card Design",
+    icon: "fa-id-card",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-1.svg",
+  },
+  {
+    name: "Own Video Post Design",
+    icon: "fa-photo-film",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-2.svg",
+  },
+  {
+    name: "Own Photo Post Design",
+    icon: "fa-camera",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-3.svg",
+  },
+  {
+    name: "WhatsApp Status Saver",
+    icon: "fa-share-alt",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-5.svg",
+  },
+  {
+    name: "AI Image Generator",
+    icon: "fa-wand-sparkles",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-6.svg",
+  },
+  {
+    name: "Own Mini Website",
+    icon: "fa-globe",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-7.svg",
+  },
+  {
+    name: "Create Video from Photo",
+    icon: "fa-video",
+    img: "https://festivalpost.in/images/marketing-solutions/Icon-4.svg",
+  },
 ];
 
 const stats = [
   { label: "Total Downloads", value: "10M+", icon: "fa-download" },
-  { label: "Premium Clients", value: "5L+",  icon: "fa-crown" },
-  { label: "Active Users",    value: "8L+",  icon: "fa-users" },
-  { label: "App Rating",      value: "4.5+", icon: "fa-star" },
+  { label: "Premium Clients", value: "5L+", icon: "fa-crown" },
+  { label: "Active Users", value: "8L+", icon: "fa-users" },
+  { label: "App Rating", value: "4.5+", icon: "fa-star" },
 ];
 
 const testimonials = [
-  { name: "R Reekki Singh Rajput", initials: "RR", text: "Festival Poster app is very easy to use. It has wide range of templates making it so easy to create professional looking posters. We share our creations directly to social media and impress our friends. I recommend to download the application." },
-  { name: "SP Santhosh Pm",        initials: "SP", text: "The Festival Poster Maker app is a great tool for creating personalized festival posters. It is easy to use and does not require any prior design or photo editing experience. It provides a variety of templates for different festivals." },
-  { name: "SK Samiya Kazmi",       initials: "SK", text: "Recommend Festival Post to everyone who loves sending creative wishes. The app is designed beautifully and is extremely user-friendly. You can edit and download in less than a minute. Perfect for both personal messages and business promotions!" },
+  {
+    name: "R Reekki Singh Rajput",
+    initials: "RR",
+    text: "Festival Poster app is very easy to use. It has wide range of templates making it so easy to create professional looking posters. We share our creations directly to social media and impress our friends. I recommend to download the application.",
+  },
+  {
+    name: "SP Santhosh Pm",
+    initials: "SP",
+    text: "The Festival Poster Maker app is a great tool for creating personalized festival posters. It is easy to use and does not require any prior design or photo editing experience. It provides a variety of templates for different festivals.",
+  },
+  {
+    name: "SK Samiya Kazmi",
+    initials: "SK",
+    text: "Recommend Festival Post to everyone who loves sending creative wishes. The app is designed beautifully and is extremely user-friendly. You can edit and download in less than a minute. Perfect for both personal messages and business promotions!",
+  },
 ];
 
 const faqs = [
-  { q: "Can I view free images and videos?",       a: "Yes, you can view free images and videos, including categories like Good Morning, Good Night, Gujarati quotes, Hindi quotes, English quotes, and various greeting videos." },
-  { q: "Can I add my own text?",                   a: "Yes, you can add your own text to both images and videos using the built-in text editor with multiple fonts and colors." },
-  { q: "Can I add multiple businesses?",           a: "Yes, you can add multiple businesses under one Festival Post account and switch between them easily at any time." },
-  { q: "How to add custom images?",               a: "You can add custom images by clicking the Custom button on the home page and selecting an image from your gallery." },
+  {
+    q: "Can I view free images and videos?",
+    a: "Yes, you can view free images and videos, including categories like Good Morning, Good Night, Gujarati quotes, Hindi quotes, English quotes, and various greeting videos.",
+  },
+  {
+    q: "Can I add my own text?",
+    a: "Yes, you can add your own text to both images and videos using the built-in text editor with multiple fonts and colors.",
+  },
+  {
+    q: "Can I add multiple businesses?",
+    a: "Yes, you can add multiple businesses under one Festival Post account and switch between them easily at any time.",
+  },
+  {
+    q: "How to add custom images?",
+    a: "You can add custom images by clicking the Custom button on the home page and selecting an image from your gallery.",
+  },
 ];
 
 // Poster strips for the infinite scroll
@@ -106,18 +211,18 @@ const posterRow2 = [
 ];
 
 const marqueeItems = [
-  { label: "Solar",       icon: "fa-solar-panel" },
-  { label: "Jewellery",   icon: "fa-gem" },
-  { label: "Mobile Store",icon: "fa-mobile-screen" },
-  { label: "Insurance",   icon: "fa-shield" },
+  { label: "Solar", icon: "fa-solar-panel" },
+  { label: "Jewellery", icon: "fa-gem" },
+  { label: "Mobile Store", icon: "fa-mobile-screen" },
+  { label: "Insurance", icon: "fa-shield" },
   { label: "Real Estate", icon: "fa-building" },
-  { label: "Healthcare",  icon: "fa-heart" },
-  { label: "Automotive",  icon: "fa-car" },
-  { label: "E-commerce",  icon: "fa-cart-shopping" },
-  { label: "Education",   icon: "fa-graduation-cap" },
-  { label: "Food",        icon: "fa-utensils" },
-  { label: "Travel",      icon: "fa-plane" },
-  { label: "Beauty",      icon: "fa-spa" },
+  { label: "Healthcare", icon: "fa-heart" },
+  { label: "Automotive", icon: "fa-car" },
+  { label: "E-commerce", icon: "fa-cart-shopping" },
+  { label: "Education", icon: "fa-graduation-cap" },
+  { label: "Food", icon: "fa-utensils" },
+  { label: "Travel", icon: "fa-plane" },
+  { label: "Beauty", icon: "fa-spa" },
 ];
 
 // ─── SCROLL REVEAL HOOK ──────────────────────────────────────────────────────
@@ -133,9 +238,11 @@ function useReveal() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
     );
-    document.querySelectorAll(".fp-reveal").forEach((el) => observer.observe(el));
+    document
+      .querySelectorAll(".fp-reveal")
+      .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 }
@@ -144,10 +251,84 @@ function useReveal() {
 
 export default function HomePage() {
   useReveal();
+
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const track1Ref = useRef<HTMLDivElement>(null);
+
   const track2Ref = useRef<HTMLDivElement>(null);
 
+  const [festivals, setFestivals] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetchFestivals();
+  }, []);
+
+  async function fetchFestivals() {
+    try {
+      const response = await fetch("/api/graphql", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `
+          query {
+            festivals {
+              id
+              title
+              imageUrl
+              festivalDate
+            }
+          }
+        `,
+        }),
+      });
+
+      const result = await response.json();
+
+      const today = new Date();
+
+      today.setHours(0, 0, 0, 0);
+
+      const allFestivals = result.data?.festivals || [];
+
+      console.log("ALL FESTIVALS:", allFestivals);
+
+      const upcomingFestivals = allFestivals.filter((festival: any) => {
+        const festivalDate = new Date(festival.festivalDate);
+
+        return festivalDate.getTime() >= today.getTime();
+      });
+
+      upcomingFestivals.sort(
+        (a: any, b: any) =>
+          new Date(a.festivalDate).getTime() -
+          new Date(b.festivalDate).getTime(),
+      );
+
+      const nextFestival = upcomingFestivals[0];
+
+      console.log("NEXT FESTIVAL:", nextFestival);
+
+      setFestivals(nextFestival ? [nextFestival] : []);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  function getDaysLeft(festivalDate: string) {
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const festival = new Date(festivalDate);
+
+    festival.setHours(0, 0, 0, 0);
+
+    const diff = festival.getTime() - today.getTime();
+
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  }
   return (
     <>
       {/* ── GLOBAL STYLES ── */}
@@ -345,16 +526,88 @@ export default function HomePage() {
         .fp-cat-label { padding: 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--g700); }
         .fp-cat-label i { color: var(--orange); margin-right: 5px; font-size: 12px; }
 
-        /* ── FESTIVAL GRID ── */
-        .fp-fest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 14px; }
-        .fp-fest-card {
-          background: #fff; border-radius: 18px; padding: 20px 12px 16px;
-          text-align: center; border: 1.5px solid var(--g100); transition: all .3s;
+        /* ── FESTIVAL GRID (fixed: proper containment, no clipping/overflow) ── */
+        .fp-fest-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 20px;
         }
-        .fp-fest-card:hover { border-color: #FED7AA; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(249,115,22,.12); }
-        .fp-fest-card img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; margin: 0 auto 10px; display: block; }
-        .fp-fest-card h4 { font-size: 13px; font-weight: 600; color: var(--g700); margin-bottom: 4px; }
-        .fp-fest-card span { font-size: 11px; color: var(--g400); }
+        .fp-fest-card {
+          display: flex;
+          flex-direction: column;
+          background: #fff;
+          border-radius: 18px;
+          border: 1.5px solid var(--g100);
+          overflow: hidden;
+          transition: all .3s;
+        }
+        .fp-fest-card:hover {
+          border-color: #FED7AA;
+          transform: translateY(-4px);
+          box-shadow: 0 12px 32px rgba(249,115,22,.14);
+        }
+        .fp-fest-img-wrap {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          background: var(--g100);
+          flex-shrink: 0;
+        }
+        .fp-fest-img-wrap img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform .5s;
+        }
+        .fp-fest-card:hover .fp-fest-img-wrap img { transform: scale(1.06); }
+        .fp-fest-body {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          padding: 18px;
+        }
+        .fp-fest-title {
+          font-size: 16px;
+          font-weight: 700;
+          color: var(--g800);
+          line-height: 1.35;
+          margin-bottom: 8px;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .fp-fest-date {
+          font-size: 13px;
+          color: var(--g500);
+          margin-bottom: 14px;
+        }
+        .fp-fest-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
+          width: fit-content;
+          margin-top: auto;
+          padding: 7px 14px;
+          border-radius: 999px;
+          background: var(--orange-ll);
+          color: var(--orange-d);
+          font-weight: 600;
+          font-size: 13px;
+        }
+        .fp-fest-empty {
+          grid-column: 1 / -1;
+          text-align: center;
+          padding: 56px 24px;
+          color: var(--g500);
+          background: var(--g50);
+          border: 1.5px dashed var(--g200);
+          border-radius: 18px;
+        }
+        .fp-fest-empty i { font-size: 26px; color: var(--g400); margin-bottom: 10px; display: block; }
 
         /* ── FEATURES GRID ── */
         .fp-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
@@ -525,16 +778,27 @@ export default function HomePage() {
       <nav className="fp-nav">
         <div className="fp-nav-inner">
           <Link href="/" className="fp-logo">
-            <div className="fp-logo-icon"><i className="fas fa-calendar-alt" /></div>
+            <div className="fp-logo-icon">
+              <i className="fas fa-calendar-alt" />
+            </div>
             Festival<span>Post</span>
           </Link>
           <div className="fp-nav-links">
-            <a href="#industries" className="fp-btn-ghost">Industries</a>
-            <a href="#features"   className="fp-btn-ghost">Features</a>
-            <a href="#testimonials" className="fp-btn-ghost">Reviews</a>
-            <Link href="/login"    className="fp-btn-ghost">Login</Link>
+            <a href="#industries" className="fp-btn-ghost">
+              Industries
+            </a>
+            <a href="#features" className="fp-btn-ghost">
+              Features
+            </a>
+            <a href="#testimonials" className="fp-btn-ghost">
+              Reviews
+            </a>
+            <Link href="/login" className="fp-btn-ghost">
+              Login
+            </Link>
             <Link href="/register" className="fp-btn-primary">
-              <i className="fas fa-rocket" style={{ fontSize: 12 }} /> Get Started
+              <i className="fas fa-rocket" style={{ fontSize: 12 }} /> Get
+              Started
             </Link>
           </div>
         </div>
@@ -543,24 +807,47 @@ export default function HomePage() {
       {/* ── HERO ── */}
       <section className="fp-hero">
         {/* Ambient glows */}
-        <div className="fp-hero-glow" style={{ top: 80, left: "6%", width: 200, height: 200, background: "rgba(249,115,22,.1)" }} />
-        <div className="fp-hero-glow" style={{ top: 140, right: "5%", width: 260, height: 260, background: "rgba(245,158,11,.08)" }} />
+        <div
+          className="fp-hero-glow"
+          style={{
+            top: 80,
+            left: "6%",
+            width: 200,
+            height: 200,
+            background: "rgba(249,115,22,.1)",
+          }}
+        />
+        <div
+          className="fp-hero-glow"
+          style={{
+            top: 140,
+            right: "5%",
+            width: 260,
+            height: 260,
+            background: "rgba(245,158,11,.08)",
+          }}
+        />
 
         <div className="fp-reveal">
           <div className="fp-hero-badge">
             <div className="fp-pulse" />
             Festival Post · Business Suite · v3.0
-            <i className="fas fa-wand-magic-sparkles" style={{ fontSize: 12, opacity: .7 }} />
+            <i
+              className="fas fa-wand-magic-sparkles"
+              style={{ fontSize: 12, opacity: 0.7 }}
+            />
           </div>
 
           <h1 className="fp-h1">
-            Promote Your Business with<br />
+            Promote Your Business with
+            <br />
             <span className="fp-grad">100K+ Images &amp; 50K+ Videos</span>
           </h1>
 
           <p className="fp-hero-sub">
             Best Digital Marketing app to promote your business for 365 Days.
-            Save and share images or videos with your business logo &amp; company details.
+            Save and share images or videos with your business logo &amp;
+            company details.
           </p>
 
           <div className="fp-cta-row">
@@ -570,8 +857,13 @@ export default function HomePage() {
             <Link href="/login" className="fp-btn-big outline">
               <i className="fas fa-sign-in-alt" /> Login
             </Link>
-            <a href="#industries" className="fp-btn-ghost" style={{ alignSelf: "center", fontSize: 15 }}>
-              Explore <i className="fas fa-arrow-down" style={{ fontSize: 12 }} />
+            <a
+              href="#industries"
+              className="fp-btn-ghost"
+              style={{ alignSelf: "center", fontSize: 15 }}
+            >
+              Explore{" "}
+              <i className="fas fa-arrow-down" style={{ fontSize: 12 }} />
             </a>
           </div>
 
@@ -605,8 +897,14 @@ export default function HomePage() {
         <div
           className="fp-poster-track"
           ref={track1Ref}
-          onMouseEnter={() => track1Ref.current && (track1Ref.current.style.animationPlayState = "paused")}
-          onMouseLeave={() => track1Ref.current && (track1Ref.current.style.animationPlayState = "running")}
+          onMouseEnter={() =>
+            track1Ref.current &&
+            (track1Ref.current.style.animationPlayState = "paused")
+          }
+          onMouseLeave={() =>
+            track1Ref.current &&
+            (track1Ref.current.style.animationPlayState = "running")
+          }
         >
           {[...posterRow1, ...posterRow1].map((src, i) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -620,8 +918,14 @@ export default function HomePage() {
         <div
           className="fp-poster-track reverse"
           ref={track2Ref}
-          onMouseEnter={() => track2Ref.current && (track2Ref.current.style.animationPlayState = "paused")}
-          onMouseLeave={() => track2Ref.current && (track2Ref.current.style.animationPlayState = "running")}
+          onMouseEnter={() =>
+            track2Ref.current &&
+            (track2Ref.current.style.animationPlayState = "paused")
+          }
+          onMouseLeave={() =>
+            track2Ref.current &&
+            (track2Ref.current.style.animationPlayState = "running")
+          }
         >
           {[...posterRow2, ...posterRow2].map((src, i) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -631,14 +935,21 @@ export default function HomePage() {
       </div>
 
       {/* ── INDUSTRIES ── */}
-      <section id="industries" className="fp-section" style={{ background: "#F9FAFB" }}>
+      <section
+        id="industries"
+        className="fp-section"
+        style={{ background: "#F9FAFB" }}
+      >
         <div className="fp-section-inner">
           <div className="fp-reveal">
-            <div className="fp-label"><i className="fas fa-briefcase" /> Industries</div>
+            <div className="fp-label">
+              <i className="fas fa-briefcase" /> Industries
+            </div>
             <h2 className="fp-section-title">Business Categories</h2>
             <p className="fp-section-sub">
-              For Daily Marketing and Advertisement Promotion large number New Posters are
-              available for Business Categories &amp; International Days
+              For Daily Marketing and Advertisement Promotion large number New
+              Posters are available for Business Categories &amp; International
+              Days
             </p>
           </div>
           <div className="fp-cat-grid fp-reveal">
@@ -662,51 +973,94 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FESTIVAL PLANNER ── */}
-      <section id="festivals" className="fp-section" style={{ background: "#fff" }}>
+      {/* ── FESTIVAL PLANNER (fixed: proper containment, image + text fully visible) ── */}
+      <section
+        id="festivals"
+        className="fp-section"
+        style={{ background: "#fff" }}
+      >
         <div className="fp-section-inner">
           <div className="fp-reveal">
-            <div className="fp-label"><i className="fas fa-calendar-alt" /> Planner</div>
-            <h2 className="fp-section-title">Festival Planner 2026</h2>
+            <div className="fp-label">
+              <i className="fas fa-calendar-alt" /> Upcoming Festival
+            </div>
+
+            <h2 className="fp-section-title">Next Upcoming Festivals</h2>
+
             <p className="fp-section-sub">
-              View upcoming festivals, set reminders, and prepare your marketing designs
-              ahead of time — all from one app.
+              Stay updated with upcoming festivals and create your marketing
+              posters before the celebration begins.
             </p>
           </div>
+
           <div className="fp-fest-grid fp-reveal">
-            {festivals.map((f, i) => (
-              <div key={i} className="fp-fest-card">
-                <Image
-                  src={f.img}
-                  alt={f.name}
-                  width={70}
-                  height={70}
-                  style={{ borderRadius: 12, objectFit: "cover" }}
-                  unoptimized
-                />
-                <h4>{f.name}</h4>
-                <span>2026</span>
+            {festivals.length > 0 ? (
+              festivals.map((festival: any) => {
+                const daysLeft = getDaysLeft(festival.festivalDate);
+                return (
+                  <div key={festival.id} className="fp-fest-card">
+                    <div className="fp-fest-img-wrap">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={festival.imageUrl || "/placeholder.jpg"}
+                        alt={festival.title}
+                      />
+                    </div>
+
+                    <div className="fp-fest-body">
+                      <h4 className="fp-fest-title">{festival.title}</h4>
+
+                      <p className="fp-fest-date">
+                        {new Date(festival.festivalDate).toLocaleDateString(
+                          "en-IN",
+                          {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          },
+                        )}
+                      </p>
+
+                      <span className="fp-fest-badge">
+                        {daysLeft === 0 ? "🎉 Today" : `${daysLeft} Days Left`}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="fp-fest-empty">
+                <i className="fas fa-calendar-xmark" />
+                No Upcoming Festivals Found
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
 
       {/* ── FEATURES ── */}
-      <section id="features" className="fp-section" style={{ background: "linear-gradient(160deg,#FFF7ED 0%,#fff 60%)" }}>
+      <section
+        id="features"
+        className="fp-section"
+        style={{ background: "linear-gradient(160deg,#FFF7ED 0%,#fff 60%)" }}
+      >
         <div className="fp-section-inner">
           <div className="fp-reveal" style={{ textAlign: "center" }}>
-            <div className="fp-label"><i className="fas fa-crown" /> Features</div>
+            <div className="fp-label">
+              <i className="fas fa-crown" /> Features
+            </div>
             <h2 className="fp-section-title">Awesome Features</h2>
             <p className="fp-section-sub" style={{ margin: "0 auto 48px" }}>
-              Ready to use Festival Posters with Creative Layout Options for Advertisement
-              on Social Media to Promote Business Online.
+              Ready to use Festival Posters with Creative Layout Options for
+              Advertisement on Social Media to Promote Business Online.
             </p>
           </div>
           <div className="fp-feat-grid fp-reveal">
             {features.map((f, i) => (
               <div key={i} className="fp-feat-card">
-                <div className="fp-feat-icon"><i className={`fas ${f.icon}`} /></div>
+                <div className="fp-feat-icon">
+                  <i className={`fas ${f.icon}`} />
+                </div>
                 <h3>{f.title}</h3>
                 <p>{f.desc}</p>
               </div>
@@ -716,20 +1070,34 @@ export default function HomePage() {
       </section>
 
       {/* ── SERVICES ── */}
-      <section id="services" className="fp-section" style={{ background: "#F9FAFB" }}>
+      <section
+        id="services"
+        className="fp-section"
+        style={{ background: "#F9FAFB" }}
+      >
         <div className="fp-section-inner">
           <div className="fp-reveal" style={{ textAlign: "center" }}>
-            <div className="fp-label"><i className="fas fa-boxes-stacked" /> Services</div>
+            <div className="fp-label">
+              <i className="fas fa-boxes-stacked" /> Services
+            </div>
             <h2 className="fp-section-title">All-in-One Marketing Solutions</h2>
             <p className="fp-section-sub" style={{ margin: "0 auto 48px" }}>
-              Everything you need to create, design, and market your brand in one place.
+              Everything you need to create, design, and market your brand in
+              one place.
             </p>
           </div>
           <div className="fp-serv-grid fp-reveal">
             {services.map((s, i) => (
               <div key={i} className="fp-serv-card">
                 <div className="fp-serv-icon">
-                  <Image src={s.img} alt={s.name} width={38} height={38} style={{ objectFit: "contain" }} unoptimized />
+                  <Image
+                    src={s.img}
+                    alt={s.name}
+                    width={38}
+                    height={38}
+                    style={{ objectFit: "contain" }}
+                    unoptimized
+                  />
                 </div>
                 <h4>{s.name}</h4>
               </div>
@@ -739,7 +1107,11 @@ export default function HomePage() {
       </section>
 
       {/* ── STATS + TESTIMONIALS ── */}
-      <section id="testimonials" className="fp-section" style={{ background: "#fff" }}>
+      <section
+        id="testimonials"
+        className="fp-section"
+        style={{ background: "#fff" }}
+      >
         <div className="fp-section-inner">
           <div className="fp-stats-band fp-reveal">
             {stats.map((s, i) => (
@@ -751,9 +1123,16 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="fp-reveal" style={{ textAlign: "center", marginBottom: 40 }}>
-            <div className="fp-label"><i className="fas fa-quote-left" /> Testimonials</div>
-            <h2 className="fp-section-title">Trusted by Festival Post Worldwide</h2>
+          <div
+            className="fp-reveal"
+            style={{ textAlign: "center", marginBottom: 40 }}
+          >
+            <div className="fp-label">
+              <i className="fas fa-quote-left" /> Testimonials
+            </div>
+            <h2 className="fp-section-title">
+              Trusted by Festival Post Worldwide
+            </h2>
           </div>
 
           <div className="fp-testi-grid fp-reveal">
@@ -772,13 +1151,20 @@ export default function HomePage() {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="fp-section" style={{ background: "#F9FAFB" }}>
+      <section
+        id="faq"
+        className="fp-section"
+        style={{ background: "#F9FAFB" }}
+      >
         <div className="fp-section-inner" style={{ maxWidth: 760 }}>
           <div className="fp-reveal" style={{ textAlign: "center" }}>
-            <div className="fp-label"><i className="fas fa-circle-question" /> FAQ</div>
+            <div className="fp-label">
+              <i className="fas fa-circle-question" /> FAQ
+            </div>
             <h2 className="fp-section-title">Your Questions Answered</h2>
             <p className="fp-section-sub" style={{ margin: "0 auto 40px" }}>
-              Browse through the FAQs to find answers to commonly asked questions.
+              Browse through the FAQs to find answers to commonly asked
+              questions.
             </p>
           </div>
           <div className="fp-faq-list fp-reveal">
@@ -789,9 +1175,13 @@ export default function HomePage() {
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 >
                   <span className="fp-faq-q">{faq.q}</span>
-                  <i className={`fas fa-chevron-down fp-faq-icon${openFaq === i ? " open" : ""}`} />
+                  <i
+                    className={`fas fa-chevron-down fp-faq-icon${openFaq === i ? " open" : ""}`}
+                  />
                 </div>
-                <div className={`fp-faq-ans${openFaq === i ? " open" : ""}`}>{faq.a}</div>
+                <div className={`fp-faq-ans${openFaq === i ? " open" : ""}`}>
+                  {faq.a}
+                </div>
               </div>
             ))}
           </div>
@@ -803,8 +1193,8 @@ export default function HomePage() {
         <div className="fp-cta-inner fp-reveal">
           <h2>Grow Your Business with Festival Post</h2>
           <p>
-            We help you create professional festival creatives that drive engagement
-            and business growth — every single day of the year.
+            We help you create professional festival creatives that drive
+            engagement and business growth — every single day of the year.
           </p>
           <div className="fp-cta-btns">
             <Link href="/register" className="fp-cta-btn-white">
@@ -822,9 +1212,18 @@ export default function HomePage() {
         <div className="fp-footer-inner">
           <div className="fp-footer-top">
             <div className="fp-footer-brand">
-              <div className="fp-logo-icon"><i className="fas fa-calendar-alt" /></div>
+              <div className="fp-logo-icon">
+                <i className="fas fa-calendar-alt" />
+              </div>
               Festival Post
-              <span style={{ fontWeight: 400, color: "#6B7280", fontSize: 13, fontFamily: "'Inter',sans-serif" }}>
+              <span
+                style={{
+                  fontWeight: 400,
+                  color: "#6B7280",
+                  fontSize: 13,
+                  fontFamily: "'Inter',sans-serif",
+                }}
+              >
                 © {new Date().getFullYear()}
               </span>
             </div>
@@ -837,14 +1236,34 @@ export default function HomePage() {
               <a href="#">Terms</a>
             </div>
             <div className="fp-footer-social">
-              <a href="https://www.facebook.com/FestivalPosterMaker" className="fp-social-btn" target="_blank" rel="noreferrer"><i className="fab fa-facebook-f" /></a>
-              <a href="https://www.instagram.com/festival_post/" className="fp-social-btn" target="_blank" rel="noreferrer"><i className="fab fa-instagram" /></a>
-              <a href="#" className="fp-social-btn"><i className="fab fa-twitter" /></a>
-              <a href="#" className="fp-social-btn"><i className="fab fa-linkedin-in" /></a>
+              <a
+                href="https://www.facebook.com/FestivalPosterMaker"
+                className="fp-social-btn"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i className="fab fa-facebook-f" />
+              </a>
+              <a
+                href="https://www.instagram.com/festival_post/"
+                className="fp-social-btn"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i className="fab fa-instagram" />
+              </a>
+              <a href="#" className="fp-social-btn">
+                <i className="fab fa-twitter" />
+              </a>
+              <a href="#" className="fp-social-btn">
+                <i className="fab fa-linkedin-in" />
+              </a>
             </div>
           </div>
           <div className="fp-footer-bottom">
-            Made with <i className="fas fa-heart" style={{ color: "#F97316" }} /> for Indian businesses &nbsp;·&nbsp; Festival Post v3.0 Pro
+            Made with{" "}
+            <i className="fas fa-heart" style={{ color: "#F97316" }} /> for
+            Indian businesses &nbsp;·&nbsp; Festival Post v3.0 Pro
           </div>
         </div>
       </footer>

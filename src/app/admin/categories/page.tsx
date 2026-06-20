@@ -27,17 +27,30 @@ export default function CategoriesPage() {
         }),
       });
       const result = await response.json();
-      if (result.errors) { alert(JSON.stringify(result.errors, null, 2)); return; }
+      if (result.errors) {
+        alert(JSON.stringify(result.errors, null, 2));
+        return;
+      }
       setCategories(result.data?.categories || []);
-    } catch (error) { console.error(error); }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  useEffect(() => { fetchCategories(); }, []);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   async function saveCategory() {
     try {
-      if (!name.trim()) { alert("Category name required"); return; }
-      if (!slug.trim()) { alert("Slug required"); return; }
+      if (!name.trim()) {
+        alert("Category name required");
+        return;
+      }
+      if (!slug.trim()) {
+        alert("Slug required");
+        return;
+      }
       setLoading(true);
       const mutation = editing
         ? `mutation UpdateCategory($input: UpdateCategoryInput!) { updateCategory(input: $input) { id } }`
@@ -47,15 +60,27 @@ export default function CategoriesPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: mutation,
-          variables: { input: editing ? { id: editing.id, name, slug } : { name, slug } },
+          variables: {
+            input: editing ? { id: editing.id, name, slug } : { name, slug },
+          },
         }),
       });
       const result = await response.json();
-      if (result.errors) { alert(result.errors[0].message); return; }
-      setOpen(false); setEditing(null); setName(""); setSlug("");
+      if (result.errors) {
+        alert(result.errors[0].message);
+        return;
+      }
+      setOpen(false);
+      setEditing(null);
+      setName("");
+      setSlug("");
       await fetchCategories();
-    } catch (error) { console.error(error); alert("Failed to save category"); }
-    finally { setLoading(false); }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to save category");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function deleteCategory(id: string) {
@@ -71,9 +96,15 @@ export default function CategoriesPage() {
         }),
       });
       const result = await response.json();
-      if (result.errors) { alert(result.errors[0].message); return; }
+      if (result.errors) {
+        alert(result.errors[0].message);
+        return;
+      }
       await fetchCategories();
-    } catch (error) { console.error(error); alert("Delete failed"); }
+    } catch (error) {
+      console.error(error);
+      alert("Delete failed");
+    }
   }
 
   return (
@@ -86,14 +117,21 @@ export default function CategoriesPage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Categories</h1>
-            <p className="text-sm text-gray-500">Manage all your content categories</p>
+            <p className="text-sm text-gray-500">
+              Manage all your content categories
+            </p>
             <span className="inline-flex items-center gap-1 text-xs font-semibold text-orange-500 bg-orange-50 border border-orange-200 px-2.5 py-0.5 rounded-full mt-1">
               ● {categories.length} total
             </span>
           </div>
         </div>
         <button
-          onClick={() => { setEditing(null); setName(""); setSlug(""); setOpen(true); }}
+          onClick={() => {
+            setEditing(null);
+            setName("");
+            setSlug("");
+            setOpen(true);
+          }}
           className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow transition-colors"
         >
           <Plus size={18} />
@@ -108,7 +146,9 @@ export default function CategoriesPage() {
             <FolderKanban size={18} />
           </div>
           <div>
-            <div className="text-xl font-bold text-gray-900">{categories.length}</div>
+            <div className="text-xl font-bold text-gray-900">
+              {categories.length}
+            </div>
             <div className="text-xs text-gray-400">Total Categories</div>
           </div>
         </div>
@@ -117,7 +157,9 @@ export default function CategoriesPage() {
             <Tag size={18} />
           </div>
           <div>
-            <div className="text-xl font-bold text-gray-900">{categories.length}</div>
+            <div className="text-xl font-bold text-gray-900">
+              {categories.length}
+            </div>
             <div className="text-xs text-gray-400">Active</div>
           </div>
         </div>
@@ -126,7 +168,9 @@ export default function CategoriesPage() {
             <Hash size={18} />
           </div>
           <div>
-            <div className="text-xl font-bold text-gray-900">{categories.length}</div>
+            <div className="text-xl font-bold text-gray-900">
+              {categories.length}
+            </div>
             <div className="text-xs text-gray-400">With Slugs</div>
           </div>
         </div>
@@ -144,22 +188,37 @@ export default function CategoriesPage() {
             <div className="w-16 h-16 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center mb-4 text-orange-300">
               <FolderKanban size={28} />
             </div>
-            <p className="text-sm font-semibold text-gray-500">No categories yet</p>
-            <p className="text-xs text-gray-400 mt-1">Click "Add Category" to create your first one</p>
+            <p className="text-sm font-semibold text-gray-500">
+              No categories yet
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Click "Add Category" to create your first one
+            </p>
           </div>
         ) : (
           <table className="w-full border-collapse">
             <thead className="bg-gray-50">
               <tr>
-                <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400 w-12">#</th>
-                <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Name</th>
-                <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Slug</th>
-                <th className="text-right px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400">Actions</th>
+                <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400 w-12">
+                  #
+                </th>
+                <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  Name
+                </th>
+                <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  Slug
+                </th>
+                <th className="text-right px-6 py-3 text-xs font-semibold uppercase tracking-wide text-gray-400">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {categories.map((category, index) => (
-                <tr key={category.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                <tr
+                  key={category.id}
+                  className="border-t border-gray-100 hover:bg-gray-50 transition-colors"
+                >
                   <td className="px-6 py-4">
                     <span className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center text-xs font-semibold text-gray-400">
                       {index + 1}
@@ -170,7 +229,9 @@ export default function CategoriesPage() {
                       <div className="w-9 h-9 rounded-lg bg-orange-100 border border-orange-200 flex items-center justify-center text-sm font-bold text-orange-500">
                         {category.name.charAt(0).toUpperCase()}
                       </div>
-                      <span className="text-sm font-semibold text-gray-800">{category.name}</span>
+                      <span className="text-sm font-semibold text-gray-800">
+                        {category.name}
+                      </span>
                     </div>
                   </td>
                   <td className="px-6 py-4">
@@ -183,7 +244,12 @@ export default function CategoriesPage() {
                     <div className="flex justify-end gap-2">
                       <button
                         title="Edit"
-                        onClick={() => { setEditing(category); setName(category.name); setSlug(category.slug); setOpen(true); }}
+                        onClick={() => {
+                          setEditing(category);
+                          setName(category.name);
+                          setSlug(category.slug);
+                          setOpen(true);
+                        }}
                         className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 text-blue-500 hover:bg-blue-100 flex items-center justify-center transition-colors"
                       >
                         <Pencil size={14} />
@@ -221,8 +287,14 @@ export default function CategoriesPage() {
                   <FolderKanban size={20} />
                 </div>
                 <div>
-                  <div className="text-base font-bold text-gray-900">{editing ? "Edit Category" : "New Category"}</div>
-                  <div className="text-xs text-gray-400">{editing ? "Update category details" : "Fill in the details below"}</div>
+                  <div className="text-base font-bold text-gray-900">
+                    {editing ? "Edit Category" : "New Category"}
+                  </div>
+                  <div className="text-xs text-gray-400">
+                    {editing
+                      ? "Update category details"
+                      : "Fill in the details below"}
+                  </div>
                 </div>
               </div>
               <button
@@ -247,7 +319,12 @@ export default function CategoriesPage() {
                 onChange={(e) => {
                   const value = e.target.value;
                   setName(value);
-                  setSlug(value.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""));
+                  setSlug(
+                    value
+                      .toLowerCase()
+                      .replace(/\s+/g, "-")
+                      .replace(/[^a-z0-9-]/g, ""),
+                  );
                 }}
               />
             </div>
@@ -269,7 +346,17 @@ export default function CategoriesPage() {
               disabled={loading}
               className="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-semibold text-sm py-3 rounded-xl transition-colors"
             >
-              {loading ? "Saving..." : editing ? <><Pencil size={15} /> Update Category</> : <><Plus size={15} /> Save Category</>}
+              {loading ? (
+                "Saving..."
+              ) : editing ? (
+                <>
+                  <Pencil size={15} /> Update Category
+                </>
+              ) : (
+                <>
+                  <Plus size={15} /> Save Category
+                </>
+              )}
             </button>
           </div>
         </div>
